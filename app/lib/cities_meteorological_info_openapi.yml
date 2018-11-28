@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  version: 0.1
+  title: Cities Meteorological Info API
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:3000
+paths:
+  /cities/{name}:
+    get:
+      summary: Info on the altitude and pressure of a given city.
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: The name of the city to retrieve.
+          schema:
+            type: string
+            enum:
+              - la paz
+              - mexico city
+      responses:
+        '200':
+          description: Expected response to a valid request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CityMeteorologicalInfo"
+components:
+  schemas:
+    CityMeteorologicalInfo:
+      required:
+        - altitude
+        - pressure
+      properties:
+        altitude:
+          type: integer
+          format: int64
+        pressure:
+          type: string
